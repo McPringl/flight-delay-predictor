@@ -1,0 +1,99 @@
+{
+  "split": {
+    "train_end": "2024-04-01",
+    "test_start": "2024-07-01",
+    "train_rows": 8369455,
+    "valid_rows": 1777413,
+    "test_rows": 3561781
+  },
+  "scores": {
+    "model": {
+      "rows": 3561781,
+      "late_rate": 0.19690121318520146,
+      "auc": 0.6787256540560315,
+      "log_loss": 0.4622173462255418,
+      "brier": 0.14663763903500882,
+      "accuracy_at_0.5": 0.8057867679118957
+    },
+    "baseline_route_rate": {
+      "rows": 3561781,
+      "late_rate": 0.19690121318520146,
+      "auc": 0.5619826490009082,
+      "log_loss": 0.49391091254981384,
+      "brier": 0.1575776729613869,
+      "accuracy_at_0.5": 0.8030010828852195
+    },
+    "baseline_carrier_rate": {
+      "rows": 3561781,
+      "late_rate": 0.19690121318520146,
+      "auc": 0.543267508947869,
+      "log_loss": 0.49547683677007665,
+      "brier": 0.15797122429056493,
+      "accuracy_at_0.5": 0.8030987868147985
+    }
+  },
+  "calibration_test": [
+    {
+      "predicted": 0.083,
+      "actual": 0.068,
+      "n": 356179
+    },
+    {
+      "predicted": 0.104,
+      "actual": 0.101,
+      "n": 356178
+    },
+    {
+      "predicted": 0.121,
+      "actual": 0.123,
+      "n": 356178
+    },
+    {
+      "predicted": 0.138,
+      "actual": 0.144,
+      "n": 356178
+    },
+    {
+      "predicted": 0.156,
+      "actual": 0.161,
+      "n": 356178
+    },
+    {
+      "predicted": 0.178,
+      "actual": 0.182,
+      "n": 356178
+    },
+    {
+      "predicted": 0.204,
+      "actual": 0.208,
+      "n": 356178
+    },
+    {
+      "predicted": 0.239,
+      "actual": 0.243,
+      "n": 356178
+    },
+    {
+      "predicted": 0.295,
+      "actual": 0.296,
+      "n": 356178
+    },
+    {
+      "predicted": 0.421,
+      "actual": 0.444,
+      "n": 356178
+    }
+  ],
+  "top_features": {
+    "origin_hour_rate": 0.2201,
+    "flight_rate": 0.1327,
+    "month": 0.1236,
+    "dep_minutes": 0.0961,
+    "precipitation_mm": 0.0863,
+    "origin": 0.0587,
+    "temperature_c": 0.0496,
+    "day_of_month": 0.0479,
+    "route_rate": 0.0395,
+    "carrier": 0.0387
+  }
+}
