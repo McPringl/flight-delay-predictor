@@ -8,14 +8,13 @@ Time-based split (NOT random), because in real life we predict the FUTURE:
 
 Outputs (in models/):
     lgb_model.txt           the trained LightGBM model
-    app_artifacts.pkl       lookup tables + category lists the web app needs
+    app_meta.json, *.parquet  lookup tables + category lists the web app needs
     metrics.json            the scores, for the README / portfolio
 
 Run AFTER download_data.py and download_weather.py:   python train.py
 """
 
 import json
-import pickle
 from pathlib import Path
 
 import lightgbm as lgb
@@ -24,6 +23,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, brier_score_loss, log_loss, roc_auc_score
 
 import features as F
+from artifacts import save_artifacts
 
 ROOT = Path(__file__).parent
 DATA_DIR = ROOT / "data"
@@ -181,15 +181,13 @@ def main() -> None:
                          .groupby("route")[["distance", "crs_elapsed"]].median())
 
     model.save_model(str(MODEL_DIR / "lgb_model.txt"))
-    with open(MODEL_DIR / "app_artifacts.pkl", "wb") as f:
-        pickle.dump({
-            "features": F.FEATURES,
-            "categories": categories,
-            "encodings": all_tables,
-            "climatology": climo,
-            "route_info": route_info,
-            "best_iteration": model.best_iteration,
-        }, f)
+    save_artifacts(MODEL_DIR,
+                   features=F.FEATURES,
+                   categories=categories,
+                   encodings=all_tables,
+                   climatology=climo,
+                   route_info=route_info,
+                   best_iteration=model.best_iteration)
 
     metrics = {
         "split": {"train_end": str(TRAIN_END.date()), "test_start": str(TEST_START.date()),

@@ -12,7 +12,6 @@ The user picks an airline, origin, destination, date and scheduled departure tim
 """
 
 import json
-import pickle
 from datetime import date, datetime, time
 from pathlib import Path
 
@@ -23,6 +22,7 @@ import requests
 import streamlit as st
 
 import features as F
+from artifacts import load_artifacts
 
 ROOT = Path(__file__).parent
 MODEL_DIR = ROOT / "models"
@@ -47,8 +47,7 @@ AIRLINE_NAMES = {
 @st.cache_resource
 def load_model():
     booster = lgb.Booster(model_file=str(MODEL_DIR / "lgb_model.txt"))
-    with open(MODEL_DIR / "app_artifacts.pkl", "rb") as f:
-        artifacts = pickle.load(f)
+    artifacts = load_artifacts(MODEL_DIR)     # parquet + JSON, no pickle
     metrics = json.loads((MODEL_DIR / "metrics.json").read_text())
     return booster, artifacts, metrics
 
